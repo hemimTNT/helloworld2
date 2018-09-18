@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<properties resource="application.properties" />
+
+	<!-- default数据源 -->
+	<context id="base" targetRuntime="MyBatis3Simple"
+		defaultModelType="flat">
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers"
+				value="com.example.demo.util.MyMapper" />
+		</plugin>
+
+		<jdbcConnection
+			driverClass="${spring.datasource.base.driver-class-name}"
+			connectionURL="${spring.datasource.base.url}"
+			userId="${spring.datasource.base.username}"
+			password="${spring.datasource.base.password}">
+		</jdbcConnection>
+
+		<!-- 生产entity所在包 -->
+		<javaModelGenerator
+			targetPackage="${mybatis.type-aliases-package}"
+			targetProject="src/main/java" />
+		<!-- 生成mapper所在包 -->
+		<sqlMapGenerator targetPackage="mappers/base"
+			targetProject="src/main/resources" />
+		<!-- 配置mapper对应的java映射 -->
+		<javaClientGenerator
+			targetPackage="com.example.demo.mapper.base"
+			targetProject="src/main/java" type="XMLMAPPER" />
+
+		<table tableName="girl">
+			<!--mysql 配置 -->
+			<!-- <generatedKey column="id" sqlStatement="Mysql" identity="true"/> -->
+			<!--oracle 配置 -->
+			<!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from 
+				dual" identity="false" type="pre"/> -->
+		</table>
+		<table tableName="girl_info"></table>
+	</context>
+
+	<!-- other数据源 -->
+	<context id="other" targetRuntime="MyBatis3Simple"
+		defaultModelType="flat">
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers"
+				value="com.example.demo.util.MyMapper" />
+		</plugin>
+
+		<jdbcConnection
+			driverClass="${spring.datasource.other.driver-class-name}"
+			connectionURL="${spring.datasource.other.url}"
+			userId="${spring.datasource.other.username}"
+			password="${spring.datasource.other.password}">
+		</jdbcConnection>
+
+		<!-- 生产entity所在包 -->
+		<javaModelGenerator
+			targetPackage="${mybatis.type-aliases-package}"
+			targetProject="src/main/java" />
+		<!-- 生成mapper所在包 -->
+		<sqlMapGenerator targetPackage="mappers/other"
+			targetProject="src/main/resources" />
+		<!-- 配置mapper对应的java映射 -->
+		<javaClientGenerator
+			targetPackage="com.example.demo.mapper.other"
+			targetProject="src/main/java" type="XMLMAPPER" />
+
+		<table tableName="user_test"></table>
+	</context>
+</generatorConfiguration>
